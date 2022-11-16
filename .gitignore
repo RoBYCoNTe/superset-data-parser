@@ -2,3 +2,4 @@ tmp/**
 split/**
 gen/**
 dataset.csv
+__pycache__
