@@ -3,3 +3,4 @@ split/**
 gen/**
 dataset.csv
 __pycache__
+.DS_Store
