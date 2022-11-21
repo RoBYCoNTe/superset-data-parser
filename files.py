@@ -32,7 +32,7 @@ class ChronicityFileInfo(ExcelFileInfo):
         self.catalogue()
 
     def catalogue(self):
-        bad_words = ['tmp\\', ' - Femmine', ' - Maschi', ' - All', '.xlsx']
+        bad_words = ['tmp//', ' - Femmine', ' - Maschi', ' - All', '.xlsx']
         self.age_range = self.path
         for word in bad_words:
             self.age_range = self.age_range.replace(word, '')

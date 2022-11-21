@@ -1,5 +1,7 @@
 tmp/**
+!tmp/.keep
 split/**
+!split/.keep
 gen/**
 dataset.csv
 __pycache__

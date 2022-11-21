@@ -1,4 +1,3 @@
-import time
 import files
 import pandas as pd
 
@@ -8,6 +7,9 @@ rows = 0
 
 dataset_csv = open('dataset.csv', 'w', encoding='utf-8')
 dataset_columns = ",".join([
+    "filename",
+    "sheet",
+    "column",
     "reference",
     'reference_type',
     'age_range',
@@ -19,19 +21,13 @@ dataset_columns = ",".join([
     'value'
 ]) + '\n'
 dataset_csv.write(dataset_columns)
+
 for xlsx_file in xlsx_files:
     print("File: {}".format(xlsx_file.path))
     total_rows = 0
-    start_file_time = time.time()
     for sheet_name in xlsx_file.get_sheet_names():
         data = pd.read_excel(xlsx_file.path, sheet_name=sheet_name)
         column_names = list(data.columns)
-
-        filename = "cronicita_{}_{}_{}.csv".format(
-            xlsx_file.age_range.replace('-', '_'),
-            xlsx_file.sex,
-            sheet_name).upper()
-
         csv_rows = []
         for index, row in data.iterrows():
             string = row['STRINGA']
@@ -42,7 +38,6 @@ for xlsx_file in xlsx_files:
             # Name is the entire string if it doesn't contain ' - ' else it's the second part
             args = string.split(' - ')
             if len(args) > 1:
-                # 1 to end
                 reference = ' - '.join(args[1:])
             else:
                 reference = string
@@ -72,6 +67,9 @@ for xlsx_file in xlsx_files:
                 indicator = indicator.replace("_{}".format(pathology), '')
                 risk = risk.replace(pathology, 'Tutte')
                 csv_line: list[str] = [
+                    xlsx_file.name,
+                    sheet_name,
+                    column,
                     reference,
                     reference_type,
                     xlsx_file.age_range,
